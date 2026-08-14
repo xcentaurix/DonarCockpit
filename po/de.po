@@ -1,0 +1,68 @@
+# German Translation for PlutoTV.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-07 13:05+0200\n"
+"PO-Revision-Date: 2026-08-07 13:10+0200\n"
+"Last-Translator: xcentaurix\n"
+"Language-Team: xcentaurix\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+"X-Poedit-Basepath: ../src\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: .\n"
+
+msgid "DonarCockpit Settings"
+msgstr "DonarCockpit Einstellungen"
+
+msgid "TorrServer URL"
+msgstr "TorrServer URL"
+
+msgid "TorrServer login (optional)"
+msgstr "TorrServer Login (optinal)"
+
+msgid "TorrServer password (optional)"
+msgstr "TorrSeerver Passwort (optional)"
+
+msgid "TorrServer request timeout (s)"
+msgstr "TorrServer Request-Timeout (s)"
+
+msgid "Install directory"
+msgstr "Installations-Verzeichnis"
+
+msgid "Binary name"
+msgstr "Name der Server-Binary"
+
+msgid "GitHub repo (owner/name)"
+msgstr "Github Repository (Eigentümer/Name)"
+
+msgid "Auto-download binary if missing"
+msgstr "Lade Server-Binary automatisch herunter, falls nicht verfügbar"
+
+msgid "Auto-start TorrServer at boot"
+msgstr "Starte TorrServer automatisch beim Booten"
+
+msgid "TMDB API key"
+msgstr "TMDB API Key"
+
+msgid "TMDB language"
+msgstr "TMDB Sprache"
+
+msgid "Rutor mirror URL"
+msgstr "Rutor Mirror URL"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Save"
+msgstr "Speichern"

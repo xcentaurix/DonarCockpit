@@ -1,49 +1,15 @@
 # DonarCockpit
 
-Enigma2 plugin providing a shared TorrServer / TMDB / torrent-search backend
-for other Cockpit-family plugins (HydraCockpit, TheraphosaCockpit, ...).
+Enigma2 plugin implementing a shared backend media provider to gui-frontends.
 
-It has no significant UI of its own beyond a settings screen
-("DonarCockpit Settings" in the plugin menu): its job is to own the
-TorrServer binary, its lifecycle, and TMDB/torrent-search configuration once,
-so other plugins don't each need their own copy.
+## Disclaimer
+The project author is not responsible for how this software is used by others. It is not intended to be used for accessing or distributing copyrighted materials without authorization.
+Users are solely responsible for determining the legality of their actions.
 
-## Configuration
+This repository has no control over the streams, links, or the legality of the content provided by the different hosts (including all mirror sites). It is the end user's responsibility to ensure the legal use of these streams, and we strongly recommend verifying that the content complies with all applicable laws, including copyright laws and regulations of your country's jurisdiction before use.
 
-All settings live under `config.plugins.donarcockpit` and are editable from
-the "DonarCockpit Settings" plugin menu entry:
+## Limitations
+- Plugin was tested on OpenViX and oATV.
 
-- `torrserver_url`, `torrserver_login`, `torrserver_password`, `torrserver_timeout`
-- `install_dir`, `binary_name`, `repo` (GitHub `owner/name` to fetch releases from)
-- `autodownload`, `autostart`
-- `tmdb_api_key`, `tmdb_language`
-- `rutor_url_prefix`
-
-## Using DonarCockpit from another plugin
-
-```python
-from Plugins.Extensions.DonarCockpit import api as donar
-
-donar.start_torrserver()
-ts = donar.get_torrserver()
-ts.read_torrents()
-
-q = donar.new_tmdb_query()
-q.query = "Interstellar"
-results = q.select_tmdb_info()
-
-search = donar.new_rutor_search()
-search.query = "Interstellar"
-```
-
-Lower-level access to the underlying `torrmgr` package (`torrsrv`, `tmdb`,
-`search_parsers`, `urlrequest`) is also available directly:
-
-```python
-from Plugins.Extensions.DonarCockpit.torrmgr import torrsrv
-```
-
-## Attribution
-
-`torrmgr` is carried over from HydraCockpit (itself based on the work of
-Ostende and others).
+## Links
+- Installation: https://xcentaurix.github.io/DonarCockpit

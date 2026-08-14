@@ -1,5 +1,5 @@
 Description: DonarCockpit
 Package: enigma2-plugin-extensions-donarcockpit
-Version: 0.0.1
+Version: 0.1.0
 Architecture: all
-Depends:
+Depends: python3-twisted, python3-difflib
