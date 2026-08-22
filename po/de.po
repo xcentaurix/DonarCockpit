@@ -66,3 +66,36 @@ msgstr "Abbrechen"
 
 msgid "Save"
 msgstr "Speichern"
+
+msgid "Cinemeta base URL"
+msgstr ""
+
+msgid "Debrid API token"
+msgstr ""
+
+msgid "Debrid provider"
+msgstr ""
+
+msgid "GitHub repo"
+msgstr ""
+
+msgid "Log level"
+msgstr ""
+
+msgid "Setup"
+msgstr ""
+
+msgid "Stremio addon URL"
+msgstr ""
+
+msgid "TorrServer login"
+msgstr ""
+
+msgid "TorrServer password"
+msgstr ""
+
+msgid "TorrServer request timeout"
+msgstr ""
+
+msgid "YTS API base URL"
+msgstr ""

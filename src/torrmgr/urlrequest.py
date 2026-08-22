@@ -3,7 +3,7 @@
 from urllib.parse import urlencode
 from urllib.request import urlopen, Request
 from . import ENCODE_UTF8
-from .Debug import logger
+from ..Debug import logger
 
 
 def request_url(url, values=None, context=None, timeout=None):

@@ -1,4 +1,6 @@
-# -*- coding: UTF-8 -*-
+# Copyright (C) 2026 by xcentaurix
+# License: GNU General Public License v3.0
+
 """Debrid-service resolver.
 
 Ported from HydraCockpit's screens.py DebridResolver: given a magnet link,

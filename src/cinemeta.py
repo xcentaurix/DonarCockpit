@@ -1,4 +1,6 @@
-# -*- coding: UTF-8 -*-
+# Copyright (C) 2026 by xcentaurix
+# License: GNU General Public License v3.0
+
 """Cinemeta (Stremio's official movie/series catalog addon) browse/search.
 
 Unlike search_parsers.py (torrent search) and stream_providers.py (stream

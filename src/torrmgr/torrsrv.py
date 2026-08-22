@@ -10,7 +10,7 @@ import time
 from urllib.parse import quote, urlencode
 from urllib.request import urlopen, Request
 
-from .Debug import logger
+from ..Debug import logger
 from . import ENCODE_UTF8
 
 

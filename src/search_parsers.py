@@ -1,5 +1,6 @@
-# -*- coding: UTF-8 -*-
-# version: 25/03/2022
+# Copyright (C) 2026 by xcentaurix
+# License: GNU General Public License v3.0
+
 import json
 import re
 from urllib.parse import quote, unquote, urlencode
@@ -75,7 +76,7 @@ class v_links:
 class t_info:
     def __init__(self, info, search_obj=None):
         self.info = info  # {"url":"", "date":'', "name":"", "size":"", "seeders":"", "leechers":"", "magnet":'', "file_url":""}
-        self.detail_info = {"description": "", "year": "", "genres": "", "duration": "", "video": "", "quality": ""}
+        self.detail_info = {"description": "", "year": "", "genres": "", "duration": "", "video": "", "quality": "", "imdb_id": ""}
         self.search_obj = search_obj
 
     @property
@@ -154,6 +155,13 @@ class t_info:
     def quality(self):
         # video quality info, not always available!
         return self.detail_info.get("quality", "")
+
+    @property
+    def imdb_id(self):
+        # "tt1234567" - only populated by parsers that get it for free from
+        # their own API response (currently just yts, via movie["imdb_code"]);
+        # rutor has no IMDB linkage at all, so this stays "" for it.
+        return self.detail_info.get("imdb_id", "")
 
     def load_detail_info(self):
         return (self.search_obj.load_detail_info(self) if self.search_obj else False)
@@ -506,6 +514,7 @@ class yts:
                 "year": str(movie.get("year", "")),
                 "genres": movie.get("genres", []),
                 "duration": (f"{movie['runtime']} min" if movie.get("runtime") else ""),
+                "imdb_id": movie.get("imdb_code", ""),
             }
             for torrent in movie.get("torrents", []):
                 info = self.t_info_dict.copy()

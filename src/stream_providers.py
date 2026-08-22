@@ -1,22 +1,6 @@
-# -*- coding: UTF-8 -*-
-"""Stremio-addon stream providers.
+# Copyright (C) 2026 by xcentaurix
+# License: GNU General Public License v3.0
 
-Ported from HydraCockpit's screens.py Provider hierarchy so any Cockpit
-plugin can resolve streams from a configured Stremio-addon server (given an
-IMDB id) the same way search_parsers.py lets callers search rutor/YTS by
-query text. This is a different operation from search_parsers.py's t_info
-search results: given a *known* title's IMDB id (plus season/episode for a
-series), fetch the streams a Stremio addon server currently has for it -
-not "search by title text".
-
-Each Provider normalizes one addon server's minor response-shape quirks
-into Stremio's native streams[] format (most addons already return that
-format as-is; a couple, like Comet and MediaFusion, need a field
-reconstructed). get_provider() picks the right one by inspecting the
-addon's own base URL, matching HydraCockpit's original get_provider()
-semantics: one configured addon endpoint at a time, not a menu of
-independently-selectable bases per provider.
-"""
 import re
 
 

@@ -1,67 +1,40 @@
-from Screens.Screen import Screen
+# Copyright (C) 2026 by xcentaurix
+# License: GNU General Public License v3.0
+
+from Screens.Setup import Setup
 from Screens.MessageBox import MessageBox
 from Components.ActionMap import ActionMap
-from Components.ConfigList import ConfigListScreen
+from Components.Button import Button
 from Components.Sources.StaticText import StaticText
-from Components.config import getConfigListEntry
 from twisted.internet.threads import deferToThread
 
+from .Debug import logger, log_levels, setLogLevel
+from .Version import PLUGIN, VERSION
 from .ConfigInit import cfg
-from .Debug import logger
-from .Version import VERSION
 from . import api
 from . import _
 
 
-class DonarSetup(Screen, ConfigListScreen):
-    """Settings screen for DonarCockpit's shared TorrServer/TMDB/search config."""
-
-    skin = """
-    <screen name="DonarSetup" position="center,center" size="820,570" title="DonarCockpit Settings">
-        <widget name="config" position="10,10" size="800,380" scrollbarMode="showOnDemand" />
-        <widget source="installed_version" render="Label" position="10,398" size="800,25" font="Regular;18" halign="left" valign="center" transparent="1" zPosition="2" />
-        <widget source="latest_version" render="Label" position="10,423" size="800,25" font="Regular;18" halign="left" valign="center" transparent="1" zPosition="2" />
-        <ePixmap position="0,510" size="140,40" pixmap="skin_default/buttons/red.png" alphatest="blend" zPosition="1" />
-        <ePixmap position="150,510" size="140,40" pixmap="skin_default/buttons/green.png" alphatest="blend" zPosition="1" />
-        <ePixmap position="300,510" size="140,40" pixmap="skin_default/buttons/yellow.png" alphatest="blend" zPosition="1" />
-        <widget source="key_red" render="Label" position="0,510" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#9f1313" transparent="1" zPosition="2" />
-        <widget source="key_green" render="Label" position="150,510" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#1f771f" transparent="1" zPosition="2" />
-        <widget source="key_yellow" render="Label" position="300,510" size="140,40" font="Regular;20" halign="center" valign="center" backgroundColor="#a08500" transparent="1" zPosition="2" />
-    </screen>"""
+class SetupScreen(Setup):
+    """Standard Setup-driven config screen for DonarCockpit, extended with a
+    TorrServer version-check display and an "Update Server" action."""
 
     def __init__(self, session):
-        Screen.__init__(self, session)
-        self.setTitle(_("DonarCockpit Settings") + f" - {VERSION}")
-        ConfigListScreen.__init__(self, [
-            getConfigListEntry(_("TorrServer URL"), cfg.torrserver_url),
-            getConfigListEntry(_("TorrServer login (optional)"), cfg.torrserver_login),
-            getConfigListEntry(_("TorrServer password (optional)"), cfg.torrserver_password),
-            getConfigListEntry(_("TorrServer request timeout (s)"), cfg.torrserver_timeout),
-            getConfigListEntry(_("Install directory"), cfg.install_dir),
-            getConfigListEntry(_("Binary name"), cfg.binary_name),
-            getConfigListEntry(_("GitHub repo (owner/name)"), cfg.repo),
-            getConfigListEntry(_("Auto-download binary if missing"), cfg.autodownload),
-            getConfigListEntry(_("Auto-start TorrServer at boot"), cfg.autostart),
-            getConfigListEntry(_("TMDB API key"), cfg.tmdb_api_key),
-            getConfigListEntry(_("TMDB language"), cfg.tmdb_language),
-            getConfigListEntry(_("Rutor mirror URL"), cfg.rutor_url_prefix),
-            getConfigListEntry(_("YTS API base URL"), cfg.yts_api_base),
-            getConfigListEntry(_("Cinemeta base URL"), cfg.cinemeta_base_url),
-            getConfigListEntry(_("Stremio addon URL"), cfg.addon_base_url),
-            getConfigListEntry(_("Debrid provider"), cfg.debrid_provider),
-            getConfigListEntry(_("Debrid API token"), cfg.debrid_token),
-        ], session=session)
+        Setup.__init__(self, session, setup=PLUGIN.lower(), plugin=f"Extensions/{PLUGIN}", PluginLanguageDomain=PLUGIN)
+        self.skinName = "SetupDonarCockpit"
+        self.setTitle(PLUGIN + " - " + _("Setup") + f" - {VERSION}")
 
-        self["key_red"] = StaticText(_("Cancel"))
-        self["key_green"] = StaticText(_("Save"))
-        self["key_yellow"] = StaticText(_("Update Server"))
         self["installed_version"] = StaticText(_("Installed version: checking..."))
         self["latest_version"] = StaticText(_("Latest version: checking..."))
-        self["actions"] = ActionMap(["SetupActions", "ColorActions"], {
-            "cancel": self.keyCancel,
-            "red": self.keyCancel,
-            "save": self.keySave,
-            "green": self.keySave,
+
+        # screenpart_CockpitButtonBar binds its buttons via name="key_*" to a
+        # Button component (matching the rest of the Cockpit family), not the
+        # source="key_*" render="Label" StaticText pairing ConfigListScreen/Setup
+        # set up by default - override those here to match.
+        self["key_red"] = Button(_("Cancel"))
+        self["key_green"] = Button(_("Save"))
+        self["key_yellow"] = Button(_("Update Server"))
+        self["yellowAction"] = ActionMap(["ColorActions"], {
             "yellow": self.updateServer,
         }, -1)
 
@@ -71,20 +44,20 @@ class DonarSetup(Screen, ConfigListScreen):
         self._updating = False
         self._checkVersions()
 
-    # keySave/keyCancel below wrap ConfigListScreen's own (which iterate
-    # self["config"].list, calling .save()/.cancel() on each entry, then
-    # close the screen) just to block closing the screen while an update
-    # download/install is in progress.
+    # keySave/keyCancel wrap Setup's own (ConfigListScreen's, saving/canceling
+    # each entry then closing the screen) just to block closing the screen
+    # while an update download/install is in progress.
 
     def keyCancel(self):
         if self._updating:
             return
-        ConfigListScreen.keyCancel(self)
+        Setup.keyCancel(self)
 
     def keySave(self):
         if self._updating:
             return
-        ConfigListScreen.keySave(self)
+        setLogLevel(log_levels[cfg.debug_log_level.value])
+        Setup.keySave(self)
 
     def _checkVersions(self):
         deferToThread(api.get_torrserver_version).addCallback(self._installedVersionChecked).addErrback(self._installedVersionCheckFailed)

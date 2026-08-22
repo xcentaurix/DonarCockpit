@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--suppress XmlUnboundNsPrefix -->
+<setupxml>
+	<setup key="donarcockpit" title="Setup">
+		<item text="TorrServer URL" description="The URL TorrServer's web API is reachable at.">config.plugins.donarcockpit.torrserver_url</item>
+		<item text="TorrServer login" description="Optional login for TorrServer's web API, if authentication is enabled.">config.plugins.donarcockpit.torrserver_login</item>
+		<item text="TorrServer password" description="Optional password for TorrServer's web API, if authentication is enabled.">config.plugins.donarcockpit.torrserver_password</item>
+		<item text="TorrServer request timeout" description="Timeout in seconds for requests to TorrServer's web API.">config.plugins.donarcockpit.torrserver_timeout</item>
+		<item text="Install directory" description="Directory the TorrServer binary is installed into.">config.plugins.donarcockpit.install_dir</item>
+		<item text="Binary name" description="Filename of the TorrServer binary.">config.plugins.donarcockpit.binary_name</item>
+		<item text="GitHub repo" description="GitHub repository (owner/name) TorrServer releases are downloaded from.">config.plugins.donarcockpit.repo</item>
+		<item text="Auto-download binary if missing" description="Select whether the TorrServer binary should be downloaded automatically if it is missing.">config.plugins.donarcockpit.autodownload</item>
+		<item text="Auto-start TorrServer at boot" description="Select whether TorrServer should be started automatically at boot.">config.plugins.donarcockpit.autostart</item>
+		<item text="TMDB API key" description="API key used for TMDB metadata lookups.">config.plugins.donarcockpit.tmdb_api_key</item>
+		<item text="TMDB language" description="Preferred language for TMDB metadata.">config.plugins.donarcockpit.tmdb_language</item>
+		<item text="Rutor mirror URL" description="Base URL of the Rutor mirror to search.">config.plugins.donarcockpit.rutor_url_prefix</item>
+		<item text="YTS API base URL" description="Base URL of the YTS API to search.">config.plugins.donarcockpit.yts_api_base</item>
+		<item text="Cinemeta base URL" description="Base URL of the Cinemeta metadata service.">config.plugins.donarcockpit.cinemeta_base_url</item>
+		<item text="Stremio addon URL" description="Base URL of the Stremio addon used for stream lookups.">config.plugins.donarcockpit.addon_base_url</item>
+		<item text="Debrid provider" description="Select the debrid service used to resolve streams.">config.plugins.donarcockpit.debrid_provider</item>
+		<item text="Debrid API token" description="API token for the selected debrid service.">config.plugins.donarcockpit.debrid_token</item>
+		<item level="2" text="Log level" description="Select the debug log level.">config.plugins.donarcockpit.debug_log_level</item>
+	</setup>
+</setupxml>

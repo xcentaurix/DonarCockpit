@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+# Copyright (C) 2026 by xcentaurix
+# License: GNU General Public License v3.0
 # version: 21/02/2022
 # author: zmej74
 # version: 07/05/2022

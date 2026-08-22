@@ -1,3 +1,4 @@
+# Copyright (C) 2026 by xcentaurix
 # License: GNU General Public License v3.0
 
 from Components.config import (
@@ -6,8 +7,11 @@ from Components.config import (
 
 # Defined in its own module (not plugin.py or api.py) so config.plugins.donarcockpit
 # exists as soon as anything - plugin.py during Enigma2's plugin scan, or api.py
-# imported directly by another plugin - reaches for it.
-config.plugins.donarcockpit = ConfigSubsection()
+# imported directly by another plugin - reaches for it. Guarded since Debug.py
+# (imported before this module) already creates it with debug_log_level attached;
+# recreating it unconditionally here would wipe that out.
+if not hasattr(config.plugins, "donarcockpit"):
+    config.plugins.donarcockpit = ConfigSubsection()
 cfg = config.plugins.donarcockpit
 cfg.torrserver_url = ConfigText(default="http://127.0.0.1:8090", fixed_size=False)
 cfg.torrserver_login = ConfigText(default="", fixed_size=False)
@@ -43,7 +47,7 @@ cfg.tmdb_language = ConfigSelection(
     ],
 )
 cfg.rutor_url_prefix = ConfigText(default="http://rutor.info", fixed_size=False)
-cfg.yts_api_base = ConfigText(default="https://yts.mx/api/v2", fixed_size=False)
+cfg.yts_api_base = ConfigText(default="https://movies-api.accel.li/api/v2", fixed_size=False)
 cfg.cinemeta_base_url = ConfigText(default="https://v3-cinemeta.strem.io", fixed_size=False)
 
 ADDON_PRESETS = [
